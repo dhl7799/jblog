@@ -18,4 +18,10 @@
 		]]>
 	</select>
 	
+	<delete id="deleteByNo" parameterType="long">
+		<![CDATA[
+		delete from post where no = #{postNo }
+		]]>
+	</delete>
+	
 </mapper>

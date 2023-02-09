@@ -29,6 +29,10 @@ public class CategoryRepository {
 	public void deleteByNo(long no) {
 		sqlSession.delete("category.deleteByNo", no);
 	}
+
+	public long countCategoryNoById(String id) {
+		return sqlSession.selectOne("category.countCategoryNoById", id);
+	}
 	
 	
 }

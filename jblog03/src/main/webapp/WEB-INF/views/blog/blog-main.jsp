@@ -20,7 +20,7 @@
 			<div id="content">
 				<div class="blog-content">
 					<c:choose>
-						<c:when test="${empty postList }">
+						<c:when test="${empty postList || postIndex eq -1 }">
 						<h4>아무 글도 없습니다</h4>
 						<p>
 							
@@ -32,6 +32,11 @@
 							${postList.get(postIndex).content }
 						<p>
 						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${authUser.id eq vo.blog_id && postList.size() ne 0}">
+							<a href="${pageContext.request.contextPath}/blog/${vo.blog_id }/${postList.get(postIndex).category_no }/${postList.get(postIndex).no }/delete">삭제</a>
+						</c:when>
 					</c:choose>
 				</div>
 				<ul class="blog-list">

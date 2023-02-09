@@ -24,5 +24,9 @@ public class PostRepository {
 	public long countByCategoryNo(long no) {
 		return sqlSession.selectOne("post.countByCategoryNo",no);
 	}
+
+	public void deleteByNo(long postNo) {
+		sqlSession.delete("post.deleteByNo", postNo);
+	}
 	
 }

@@ -41,12 +41,13 @@ public class AuthInterceptor implements HandlerInterceptor {
 		//6. @Auth가 붙어 있기 때문에 인증(Authenfication) 여부 확인
 		HttpSession session = request.getSession();
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		
-		if(authUser == null) {
+		String userId = (String)session.getAttribute("current_blog_id");
+		if(authUser == null || !authUser.getId().equals(userId)) {
 			response.sendRedirect(request.getContextPath() + "/user/login");
 			return false;
 		}
 		
+		/*
 		//7. 권한(Authorization) 체크를 위해 @Auth의 role 가져오기("ADMIN", "USER")
 		String role = auth.role();
 		if(role.equals("USER")) {
@@ -58,7 +59,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 				response.sendRedirect(request.getContextPath());
 				return false;
 			}
-		}
+		}*/
 		
 		return true;
 	}

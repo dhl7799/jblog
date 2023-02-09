@@ -24,4 +24,8 @@ public class PostService {
 	public long countByCategoryNo(long no) {
 		return postRepository.countByCategoryNo(no);
 	}
+
+	public void deleteByNo(long postNo) {
+		postRepository.deleteByNo(postNo);
+	}
 }

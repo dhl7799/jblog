@@ -37,4 +37,8 @@ public class CategoryService {
 	public void deleteByNo(long no) {
 		categoryRepository.deleteByNo(no);
 	}
+
+	public long countCategoryNoById(String id) {
+		return categoryRepository.countCategoryNoById(id);
+	}
 }

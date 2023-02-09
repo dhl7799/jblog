@@ -14,7 +14,7 @@ public class LogoutInterceptor implements HandlerInterceptor {
 		HttpSession session = request.getSession();
 		session.removeAttribute("authUser");
 		session.invalidate();
-		response.sendRedirect(request.getContextPath()+"/main");
+		response.sendRedirect(request.getContextPath());
 		return false;
 	}
 	

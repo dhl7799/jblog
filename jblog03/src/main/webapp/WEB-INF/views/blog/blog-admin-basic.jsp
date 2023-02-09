@@ -20,6 +20,7 @@
 					<c:import url="/WEB-INF/views/blog/includes/admin-menu.jsp"/>
 				</ul>
 				<form action="${pageContext.request.contextPath}/blog/${authUser.id }/admin/update" method="post" enctype="multipart/form-data">
+	 		      	<input type="hidden" name=logo value="${vo.logo }" />
 	 		      	<table class="admin-config">
 			      		<tr>
 			      			<td class="t">블로그 제목</td>

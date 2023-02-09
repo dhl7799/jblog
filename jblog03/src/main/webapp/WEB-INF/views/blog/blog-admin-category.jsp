@@ -29,10 +29,11 @@
 						<th>설명</th>
 						<th>삭제</th>
 					</tr>
+					<c:set var="totalcount" value="${fn:length(categoryList) }" />
 					<c:forEach items="${categoryList }" var="categoryList"
 						varStatus="status">
 						<tr>
-							<td>${categoryList.no }</td>
+							<td>${status.index+1 }</td>
 							<td>${categoryList.name }</td>
 							<td>${categoryList.postCount }</td>
 							<td>${categoryList.description }</td>
