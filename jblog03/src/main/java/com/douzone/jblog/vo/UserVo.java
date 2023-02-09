@@ -6,7 +6,7 @@ public class UserVo {
 	private String name;
 	private String password;
 	private String reg_date;
-	private String role;
+	//private String role;
 	public long getNo() {
 		return no;
 	}
@@ -39,15 +39,17 @@ public class UserVo {
 		this.reg_date = reg_date;
 	}
 	
+	/*
 	public String getRole() {
 		return role;
 	}
 	public void setRole(String role) {
 		this.role = role;
-	}
+	}*/
+	
 	@Override
 	public String toString() {
 		return "UserVo [no=" + no + ", id=" + id + ", name=" + name + ", password=" + password + ", reg_date="
-				+ reg_date + ", role=" + role + "]";
+				+ reg_date+"]";
 	}
 }

@@ -20,7 +20,7 @@
 			<div id="content">
 				<div class="blog-content">
 					<c:choose>
-						<c:when test="${empty postList || postIndex eq -1 }">
+						<c:when test="${empty postList }">
 						<h4>아무 글도 없습니다</h4>
 						<p>
 							

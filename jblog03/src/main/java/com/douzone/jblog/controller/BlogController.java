@@ -1,6 +1,7 @@
 package com.douzone.jblog.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -22,6 +23,7 @@ import com.douzone.jblog.vo.PostVo;
 import com.douzone.jblog.vo.UserVo;
 import com.douzone.jblog.service.FileUploadService;
 
+//@RequestMapping("/{id:(?!assets).*}")
 @Controller
 @RequestMapping("/blog")
 public class BlogController {
@@ -40,42 +42,42 @@ public class BlogController {
 	@Autowired
 	private FileUploadService fileuploadService;
 	
-	@RequestMapping("/{id}")
-	public String main(@PathVariable("id") String id, Model model) {
+	//pathvariable이 없는 경우,  Optional<Long> (없으면 null로 설정해줌)
+	@RequestMapping({"/{id}","/{id}/{categoryNo}","/{id}/{categoryNo}/{postNo}"})
+	public String main(@PathVariable("id") String id, 
+			@PathVariable("categoryNo") Optional<Long> pathNo1, 
+			@PathVariable("postNo") Optional<Long> pathNo2, 
+			Model model) {
 		BlogVo vo = blogService.getBlogById(id);
 		servletContext.setAttribute("vo",vo);
 		List<CategoryVo> list = categoryService.getCategoryById(id);
 		servletContext.setAttribute("categoryList",list);
-		long categoryNo = list.get(0).getNo();
-		List<PostVo> plist = postService.getPostByCategoryNo(categoryNo);
-		servletContext.setAttribute("postList",plist);
-
-		if(plist.size()>0) {
-			model.addAttribute("postIndex",0);
-		}
-		else {
-			model.addAttribute("postIndex",-1);
+		
+		Long categoryNo = 0L;
+		Long postNo = 0L;
+		long postIndex = 0l;
+		boolean needPostIndex = false;
+		
+		if(pathNo2.isPresent()) {
+			categoryNo = pathNo1.get();
+			postNo = pathNo2.get();
+			needPostIndex = true;
+		} else if(pathNo1.isPresent()) {
+			categoryNo = pathNo1.get();
+		} else {
+			categoryNo = list.get(0).getNo();
 		}
 		
-		model.addAttribute("blog_admin_id",id);
-		return "/blog/blog-main";
-	}
-	
-	@RequestMapping("/{id}/{categoryNo}/{postNo}")
-	public String read(@PathVariable("id") String id, @PathVariable("postNo") long postNo, 
-			@PathVariable("categoryNo") long categoryNo, Model model) {
-		BlogVo vo = blogService.getBlogById(id);
-		servletContext.setAttribute("vo",vo);
-		List<CategoryVo> list = categoryService.getCategoryById(id);
-		servletContext.setAttribute("categoryList",list);
 		List<PostVo> plist = postService.getPostByCategoryNo(categoryNo);
 		servletContext.setAttribute("postList",plist);
-		long postIndex = 0l;
-		for(PostVo pv:plist) {
-			if(pv.getNo()==postNo)
-				postIndex = plist.indexOf(pv);
+		if(needPostIndex) {
+			for(PostVo pv:plist) {
+				if(pv.getNo()==postNo)
+					postIndex = plist.indexOf(pv);
+			}
 		}
 		model.addAttribute("postIndex",postIndex);
+		model.addAttribute("blog_admin_id",id);
 		return "/blog/blog-main";
 	}
 	
@@ -89,15 +91,6 @@ public class BlogController {
 		postService.deleteByNo(postNo);
 		
 		return "redirect:/blog/"+id+"/"+categoryNo;
-	}
-	
-	@RequestMapping("/{id}/{categoryNo}")
-	public String searchByCategory(@PathVariable("id") String id, @PathVariable("categoryNo") long categoryNo) {
-		List<CategoryVo> list = categoryService.getCategoryById(id);
-		servletContext.setAttribute("categoryList",list);
-		List<PostVo> plist = postService.getPostByCategoryNo(categoryNo);
-		servletContext.setAttribute("postList",plist);
-		return "/blog/blog-main";
 	}
 	
 	

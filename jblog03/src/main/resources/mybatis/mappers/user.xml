@@ -3,7 +3,7 @@
 <mapper namespace="user">
 	<insert id="join" parameterType="uservo">
 		<![CDATA[
-			insert into user values (#{no },#{id },#{name },password(#{password }),now(),'USER')
+			insert into user values (#{no },#{id },#{name },password(#{password }),now())
 		]]>	   
 	</insert>
 	
