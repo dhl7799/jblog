@@ -63,6 +63,15 @@ public class UserController {
 	public String loginform() {
 		return "/user/login";
 	}
+	
+	@RequestMapping("/login")
+	public void auth() {
+	}
+	
+	@RequestMapping("/logout")
+	public void logout() {
+	}
+	
 	/*
 	@RequestMapping("/login")
 	public String login(String id, String password) {
