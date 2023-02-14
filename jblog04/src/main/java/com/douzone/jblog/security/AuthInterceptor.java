@@ -41,7 +41,8 @@ public class AuthInterceptor implements HandlerInterceptor {
 		//6. @Auth가 붙어 있기 때문에 인증(Authenfication) 여부 확인
 		HttpSession session = request.getSession();
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		String userId = request.getRequestURI().split("/")[2];
+		String userId = request.getRequestURI().split("/")[3];
+		System.out.println("userId is= " +userId);
 		if(authUser == null || !authUser.getId().equals(userId)) {
 			response.sendRedirect(request.getContextPath() + "/user/login");
 			return false;

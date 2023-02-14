@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="post">
+	<insert id="post" parameterType="postvo">
+		<![CDATA[
+		insert into post values(null, #{category_no }, #{title }, #{content }, now())
+		]]>
+	</insert>
+	<select id="getPostByCategoryNo" parameterType="long" resultType="postvo">
+		<![CDATA[
+		select * from post where category_no = #{categoryNo }
+		]]>
+	</select>
+	
+	<select id="countByCategoryNo" parameterType="long" resultType="long">
+		<![CDATA[
+		select count(*) from post where category_no = #{categoryNo }
+		]]>
+	</select>
+	
+	<delete id="deleteByNo" parameterType="long">
+		<![CDATA[
+		delete from post where no = #{postNo }
+		]]>
+	</delete>
+	
+</mapper>
