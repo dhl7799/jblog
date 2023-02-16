@@ -1,0 +1,28 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>JBlog</title>
+<Link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery/jquery-1.9.0.js"></script>
+</head>
+<body>
+	<div class="center-content">
+		<h1 class="logo">JBlog</h1>
+		<ul class="menu" id="menu">
+			<c:import url="/WEB-INF/views/includes/menu.jsp"/>
+		</ul>
+		<form class="login-form" method="post" action="${pageContext.request.contextPath }/user/login">
+      		<label>아이디</label> <input type="text" name="id">
+      		<label>패스워드</label> <input type="password" name="password" style="width:230px; padding:5px;">
+      		<br>
+      		<input type="submit" value="로그인" style="padding:1px">
+		</form>
+	</div>
+</body>
+</html>
